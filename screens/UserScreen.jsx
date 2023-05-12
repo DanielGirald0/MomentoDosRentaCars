@@ -6,7 +6,7 @@ export default function UserScreen({navigation}) {
   return (
     <View style={styles.container}>
       <Text style={{ fontWeight: "bold", marginBottom: 10 }}>
-        Inicia sesión o registrate Gratis!
+        Inicia sesión o registrate !
       </Text>
       <Button
         style={{marginTop:10, backgroundColor:'red' }}

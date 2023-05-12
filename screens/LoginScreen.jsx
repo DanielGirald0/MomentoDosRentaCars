@@ -1,27 +1,33 @@
-import { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 import { styles } from "../assets/styles/styles";
 import { TextInput, Button } from 'react-native-paper';
-import { useNavigation } from '@react-navigation/native';
+import { readData } from '../utils';
 
-
-export let users= [
-  { username: 'dgh', name: 'Daniel Giraldo', password: '11', role: 1 },
-  { username: 'ppp', name: 'Pepito Perez ', password: '22', role: 2 },
-  { username: 'user', name: 'Jhon Doe ', password: '33', role: 3 }
-]
-
-export default function LoginScreen() {
+const LoginScreen = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const navigation = useNavigation();
+  const [userData, setUserData] = useState([])
+  const [message, setMessage] = useState('');
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      const users = await readData('users.json');
+      setUserData(users);
+    };
+
+    fetchUserData();
+  }, []);
 
   const handleLogin = () => {
-    const user = users.find(u => u.username === username && u.password === password);
-    if (user) {
-      navigation.navigate('Rent');
+    const foundUser = userData.find(user => user.username === username && user.password === password);
+    if (foundUser) {
+      console.log(foundUser)
+      setMessage('Inicio de sesión exitoso');
+      navigation.navigate('Rent', { username: foundUser.username });
     } else {
-      alert('Nombre de usuario o contraseña incorrectos');
+      console.log(foundUser)
+      setMessage('Nombre de usuario o contraseña incorrectos');
     }
   };
 
@@ -49,6 +55,9 @@ export default function LoginScreen() {
           onPress={handleLogin}>
         <Text style={{ fontWeight: "bold", marginBottom: 10 }}>Entrar</Text>
       </Button>
+      <Text style={{ fontWeight: "bold", marginBottom: 10, alignItems:'center' }}>{message}</Text>
     </View>
   );
 }
+
+export default LoginScreen;

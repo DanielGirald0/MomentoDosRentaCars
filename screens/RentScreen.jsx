@@ -1,22 +1,37 @@
-import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList } from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import { styles } from "../assets/styles/styles";
+import { writeRentalData, updateCarAvailability } from '../utils';
 
-let users = [
-    { rentnumber: '1', username: 'dgh', platenumber: 'fvz34e', rentdate: '6/5/23' },
-    { rentnumber: '2', username: 'ppp', platenumber: 'txl666', rentdate: '6/5/23' },
-    { rentnumber: '3', username: 'user', platenumber: 'psc777', rentdate: '6/5/23' }
-
-]
-
-export default function RentScreen({ navigation }) {
+const RentScreen = ({ navigation }) => {
     const [rentnumber, setRentnumber] = useState('');
     const [username, setUsername] = useState('');
     const [platenumber, setPlatenumber] = useState('');
     const [rentdate, setRentdate] = useState('');
+    const [rentList, setRentList] = useState([]);
 
+    const handleRentCar = () => {
+        const newRental = { rentnumber, username, platenumber, rentdate };
+        writeRentalData(newRental, 'rentals.json');
+        setRentList([...rentList, newRental])
+        setRentnumber('');
+        setUsername('');
+        setPlatenumber('');
+        setRentdate('');
+        updateCarAvailability(platenumber, 'cars.json', false);
+        navigation.navigate('Rent');
+    };
 
+    // Cargar la lista de carros al iniciar la pantalla
+    useEffect(() => {
+        const fetchData = async () => {
+            const rents = await readData("rentals.json");
+            setCarList(rents);
+        };
+
+        fetchData();
+    }, []);
 
     return (
         <View style={styles.container}>
@@ -52,11 +67,17 @@ export default function RentScreen({ navigation }) {
                 icon="login"
                 mode="contained"
                 title="Registrarse"
-                onPress={() => {
-                    
-                }
-                }
+                onPress={handleRentCar}
             > Registrar </Button>
+            <FlatList
+                data={rentList}
+                renderItem={({ item }) => (
+                    <Text>{`${item.rentnumber} - ${item.username} - ${item.platenumber} - ${item.rentdate}`}</Text>
+                )}
+                keyExtractor={(item) => item.rentnumber}
+            />
         </View>
     );
 }
+
+export default RentScreen;
