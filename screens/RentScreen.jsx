@@ -63,7 +63,7 @@ const RentScreen = ({ navigation }) => {
                 left={<TextInput.Icon icon="key" />}
                 value={rentdate}
                 onChangeText={setRentdate} />
-            <Button style={{ marginTop: 10, backgroundColor:'red' }}
+            <Button style={{ marginTop: 10, backgroundColor:'orange' }}
                 icon="login"
                 mode="contained"
                 title="Registrarse"

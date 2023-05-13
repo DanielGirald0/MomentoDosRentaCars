@@ -35,24 +35,6 @@ const CarScreen = () => {
         fetchData();
     }, []);
 
-    /*
-      const handleCars = () => {
-          if (platenumber === '' && brand === '' && state === '') {
-              setMessage('Todos los datos son requeridos');
-              return;
-          }
-  
-          const carsExixst = cars.some(car => car.platenumber === platenumber);
-  
-          if (carsExixst) {
-              setMessage('El vehiculo ya esta registrado');
-          } else {
-              cars.push({ platenumber, brand, state });
-              setMessage('Vehiculo registrado con exito');
-          }
-      };
-      */
-
     return (
         <View style={styles.container}>
             <Text style={{ fontWeight: "bold", marginBottom: 10 }}>
@@ -86,7 +68,7 @@ const CarScreen = () => {
                 onChangeText={setState}
             />
             <Button
-                style={{ marginTop: 10, backgroundColor: "red" }}
+                style={{ marginTop: 10, backgroundColor: "orange" }}
                 icon="login"
                 mode="contained"
                 title="Registro"

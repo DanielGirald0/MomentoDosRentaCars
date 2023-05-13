@@ -9,7 +9,7 @@ export default function UserScreen({navigation}) {
         Inicia sesión o registrate !
       </Text>
       <Button
-        style={{marginTop:10, backgroundColor:'red' }}
+        style={{marginTop:10, backgroundColor:'orange' }}
         icon="login" 
         mode="contained"
         title="Iniciar sesión"
@@ -18,7 +18,7 @@ export default function UserScreen({navigation}) {
         }}
       >Iniciar sesión</Button>
       <Button
-        style={{marginTop:10, backgroundColor:'red' }}
+        style={{marginTop:10, backgroundColor:'orange' }}
         icon="login" 
         mode="contained"
         title="Registarse"

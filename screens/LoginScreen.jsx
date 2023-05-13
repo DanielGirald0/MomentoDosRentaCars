@@ -49,7 +49,7 @@ const LoginScreen = ({ navigation }) => {
         value={password}
         secureTextEntry={true}
       />
-      <Button style={{ marginTop: 10, backgroundColor:'red' }}
+      <Button style={{ marginTop: 10, backgroundColor:'orange' }}
           icon="login"
           mode="contained"
           onPress={handleLogin}>
